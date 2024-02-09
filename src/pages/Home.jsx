@@ -7,6 +7,20 @@ export default function Home() {
   const [weatherData, setWeatherData] = useState(null);
   const [unit, setUnit] = useState("C");
   const [loader, setLoader] = useState(false);
+  const [recentSearches, setRecentSearches] = useState([]);
+
+  const chartData = {
+    labels: ['Day1', 'Day2', 'Day3', 'Day4', 'Day5'],
+    datasets: [
+      {
+        label: 'Temperature',
+        data: [20, 22, 18, 25, 21],
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2,
+        fill: false,
+      },
+    ],
+  };
 
   const getWeatherDataFunc = async (city) => {
     setLoader(true);
@@ -14,6 +28,7 @@ export default function Home() {
       const weatherdata = await getWeatherAPI(city);
       if (weatherdata) {
         setWeatherData(weatherdata?.data);
+        updateRecentSearches(city);
         setLoader(false);
       } else {
         setWeatherData(null);
@@ -22,6 +37,11 @@ export default function Home() {
     } catch (error) {
       console.log(error.message);
     }
+  };
+
+  const updateRecentSearches = (newCity) => {
+    const updatedRecentSearches = [...recentSearches.slice(0, 4), newCity];
+    setRecentSearches(updatedRecentSearches);
   };
 
   console.log(weatherData);
@@ -74,21 +94,6 @@ export default function Home() {
                   {weatherData?.location?.localtime}
                 </div>
                 <div className="text-6xl self-center inline-flex items-center justify-center rounded-lg text-indigo-400 h-24 w-24">
-                  {/*<svg
-                    className="w-32 h-32"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"
-                    ></path>
-            </svg>*/}
-
                   <img
                     className="w-full h-full"
                     src={weatherData?.current?.condition?.icon}
@@ -108,7 +113,7 @@ export default function Home() {
                     </div>
                   ) : null}
                   <div className="flex flex-col items-center ml-6">
-                    <div>Cloudy</div>
+                    <div>{weatherData?.current?.condition?.text}</div>
                     <div className="mt-1">
                       <span className="text-sm">
                         <i className="far fa-long-arrow-up"></i>
@@ -152,6 +157,8 @@ export default function Home() {
           </>
         )}
       </div>
+
+
     </>
   );
 }
