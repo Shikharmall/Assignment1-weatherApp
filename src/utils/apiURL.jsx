@@ -2,7 +2,7 @@ const ENV = import.meta.env.VITE_ENV;
 let URL;
 
 if (ENV === "LOCAL") {
-  URL = "";
+  URL = "https://api.weatherapi.com/v1/current.json";
   console.log("USING ENV: LOCAL");
 } else if (ENV === "DEV") {
   URL = import.meta.env.VITE_URL;

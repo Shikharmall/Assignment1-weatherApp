@@ -1,11 +1,13 @@
 import axios from "axios";
 import { API_URL_BASE } from "../utils/apiURL";
 
+const API = import.meta.env.VITE_API_KEY;
+
 // API for getting weather
 
-export const getWeatherAPI = async () => {
+export const getWeatherAPI = async (city) => {
   try {
-    let result = await axios(`${API_URL_BASE}`, {
+    let result = await axios(`${API_URL_BASE}?key=${API}?q=${city}`, {
       method: "GET",
     });
     return result;
