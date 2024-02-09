@@ -37,16 +37,24 @@ export default function Home() {
       <Header />
 
       <div className="flex justify-center m-3">
-        <div className="col-span-6 sm:col-span-6 w-1/2">
+        <div className="w-1/2 flex lg:flex-row md:flex-row sm:flex-col xs:flex-col">
           <input
             type="text"
             name="societyName"
             id="first-name"
-            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block w-full p-2.5"
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block lg:w-3/4 md:w-3/4 p-2.5 m-1 sm:w-full xs:w-full"
             placeholder="Enter city name"
             value={city}
             onChange={(e) => setCity(e.target.value)}
           />
+
+          <select
+            className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block lg:w-1/4 md:w-1/4 p-2.5 m-1 sm:w-full xs:w-full"
+            onChange={(e) => setUnit(e.target.value)}
+          >
+            <option value="C">Celsius</option>
+            <option value="F">Fahrenheit</option>
+          </select>
         </div>
       </div>
 
@@ -55,7 +63,7 @@ export default function Home() {
           <p>loading...</p>
         ) : (
           <>
-            {(weatherData === undefined || weatherData === null) ? (
+            {weatherData === undefined || weatherData === null ? (
               <p>City not found..</p>
             ) : (
               <div className="flex flex-col bg-white rounded p-4 w-full max-w-xs shadow">
@@ -88,9 +96,17 @@ export default function Home() {
                   />
                 </div>
                 <div className="flex flex-row items-center justify-center">
-                  <div className="font-medium text-4xl">
-                    {weatherData?.current?.temp_c}° C
-                  </div>
+                  {unit === "C" ? (
+                    <div className="font-medium text-4xl">
+                      {weatherData?.current?.temp_c}° C
+                    </div>
+                  ) : null}
+
+                  {unit === "F" ? (
+                    <div className="font-medium text-4xl">
+                      {weatherData?.current?.temp_f}° F
+                    </div>
+                  ) : null}
                   <div className="flex flex-col items-center ml-6">
                     <div>Cloudy</div>
                     <div className="mt-1">
