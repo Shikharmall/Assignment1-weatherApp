@@ -1,30 +1,19 @@
 import React, { useState, useEffect } from "react";
 import Header from "../partials/Header";
-//import { useSelector, useDispatch } from 'react-redux';
-//import { addRecentSearch } from '../redux/actions'; // Update the path accordingly
+import { useDispatch } from "react-redux";
 import { getPastWeatherAPI, getWeatherAPI } from "../Api/DataAPI";
 import LineCart from "../components/LineChart";
+import { addRecentSearchActions } from "../redux/actions";
 
 export default function Home() {
   const [city, setCity] = useState("");
+  const [cityChange, setCityChange] = useState("");
   const [weatherData, setWeatherData] = useState(null);
   const [pastWeatherData, setPastWeatherData] = useState([]);
   const [unit, setUnit] = useState("C");
   const [loader, setLoader] = useState(false);
-  const [recentSearches, setRecentSearches] = useState([]);
 
-  const chartData = {
-    labels: ["11:22", "11:23", "11:24", "11:25", "11:26"],
-    datasets: [
-      {
-        label: "Temperature",
-        data: [20, 22, 18, 25, 21],
-        borderColor: "rgba(75, 192, 192, 1)",
-        borderWidth: 2,
-        fill: false,
-      },
-    ],
-  };
+  const dispatch = useDispatch();
 
   const getWeatherDataFunc = async (city) => {
     setLoader(true);
@@ -32,8 +21,8 @@ export default function Home() {
       const weatherdata = await getWeatherAPI(city);
       if (weatherdata) {
         setWeatherData(weatherdata?.data);
-        updateRecentSearches(city);
         setLoader(false);
+        dispatch(addRecentSearchActions(city,weatherdata?.data?.current?.temp_c));
       } else {
         setWeatherData(null);
         setLoader(false);
@@ -65,16 +54,19 @@ export default function Home() {
     }
   };
 
-  const updateRecentSearches = (newCity) => {
-    const updatedRecentSearches = [...recentSearches.slice(0, 4), newCity];
-    setRecentSearches(updatedRecentSearches);
+  const searchHandler = () => {
+    setCity(cityChange);
   };
+
   useEffect(() => {
     if (city) {
       getWeatherDataFunc(city);
       getPastWeatherDataFunc(city);
+    } else {
+      setWeatherData(null);
+      setPastWeatherData([]);
     }
-  }, [city, unit]);
+  }, [city]);
 
   return (
     <>
@@ -88,9 +80,17 @@ export default function Home() {
             id="first-name"
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block lg:w-3/4 md:w-3/4 p-2.5 m-1 sm:w-full xs:w-full"
             placeholder="Enter city name"
-            value={city}
-            onChange={(e) => setCity(e.target.value)}
+            value={cityChange}
+            onChange={(e) => setCityChange(e.target.value)}
           />
+
+          <button
+            type="submit"
+            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            onClick={searchHandler}
+          >
+            Search
+          </button>
 
           <select
             className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-teal-600 focus:border-teal-600 block lg:w-1/4 md:w-1/4 p-2.5 m-1 sm:w-full xs:w-full"
