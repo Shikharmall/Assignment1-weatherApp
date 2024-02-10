@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import Header from "../partials/Header";
-import { useDispatch, useSelector } from "react-redux";
-//import { addBookActions } from "../redux/actions";
+import {  useSelector } from "react-redux";
+import "../assets/responsive.css";
 
 export default function RecentSearch() {
   const pastSearch = useSelector((state) => state.pastSearch);
-  console.log(pastSearch);
 
   return (
     <>
@@ -23,8 +22,9 @@ export default function RecentSearch() {
           </div>
           {pastSearch.map((item, index) => (
             <div
-              class="flex h-full w-full items-start justify-between rounded-md border-[1px] border-[transparent] dark:hover:border-white/20 bg-white px-3 py-[20px] transition-all duration-150 hover:border-gray-200 dark:!bg-navy-800 dark:hover:!bg-navy-700"
+              class="flex h-full w-full items-start justify-between rounded-md border-[1px] border-[transparent] dark:hover:border-white/20 bg-white px-3 py-[20px] transition-all duration-150 hover:border-gray-200 dark:!bg-navy-800 dark:hover:!bg-navy-700" 
               key={index}
+              id="flexApp"
             >
               <div class="flex items-center gap-3">
                 <div class="flex h-16 w-16 items-center justify-center">
