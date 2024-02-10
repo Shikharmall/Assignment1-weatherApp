@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { getPastWeatherAPI, getWeatherAPI } from "../Api/DataAPI";
 import LineCart from "../components/LineChart";
 import { addRecentSearchActions } from "../redux/actions";
+import "../assets/responsive.css";
 
 export default function Home() {
   const [city, setCity] = useState("");
@@ -22,7 +23,9 @@ export default function Home() {
       if (weatherdata) {
         setWeatherData(weatherdata?.data);
         setLoader(false);
-        dispatch(addRecentSearchActions(city,weatherdata?.data?.current?.temp_c));
+        dispatch(
+          addRecentSearchActions(city, weatherdata?.data?.current?.temp_c)
+        );
       } else {
         setWeatherData(null);
         setLoader(false);
@@ -73,7 +76,10 @@ export default function Home() {
       <Header />
 
       <div className="flex justify-center m-3">
-        <div className="w-1/2 flex lg:flex-row md:flex-row sm:flex-col xs:flex-col">
+        <div
+          className="w-1/2 flex lg:flex-row md:flex-row sm:flex-col xs:flex-col"
+          id="flexApp"
+        >
           <input
             type="text"
             name="societyName"
@@ -86,7 +92,7 @@ export default function Home() {
 
           <button
             type="submit"
-            className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            className="text-white bg-teal-500 hover:bg-teal-600 font-medium rounded-lg text-sm px-5 text-center"
             onClick={searchHandler}
           >
             Search
@@ -113,7 +119,10 @@ export default function Home() {
               <p>City not found..</p>
             </div>
           ) : (
-            <div className="flex items-center justify-center w-100 xs:flex-col sm:flex-col md: flex-row lg:flex-row">
+            <div
+              className="flex items-center justify-center w-100 xs:flex-col sm:flex-col md: flex-row lg:flex-row"
+              id="flexApp"
+            >
               <div className="flex items-center justify-center w-1/2">
                 <div className="flex flex-col bg-white rounded p-4 w-full max-w-xs shadow">
                   <div className="font-bold text-xl">

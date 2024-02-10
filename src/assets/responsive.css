@@ -1,0 +1,8 @@
+@media (min-width: 0px) and (max-width: 640px) {
+    
+  #flexApp{
+    flex-direction: column;
+  }
+
+
+}

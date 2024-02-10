@@ -9,7 +9,9 @@ const addRecentSearchReducer = (state = initialState, action) => {
     case addRecentSearch:
       return {
         ...state,
-        pastSearch: [...state.pastSearch.slice(0, 4), action.payload],
+        pastSearch: state.pastSearch.length !== 5
+          ? [...state.pastSearch, action.payload]
+          : [...state.pastSearch.slice(1, 5), action.payload],
       };
     default:
       return state;
