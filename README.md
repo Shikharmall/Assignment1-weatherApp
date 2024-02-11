@@ -9,7 +9,7 @@
      npm run dev
 
 ## Features
-     Search city and get its weather data(chart also included).
+     Search city and get its weather data(as get graph of past weather).
      Responsive Application.
 
 ## API USED
