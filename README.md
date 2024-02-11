@@ -1,8 +1,16 @@
 # Weather App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Frontend
+  ### Technologies Used
+     React JS, Vite ,Redux , Tailwind CSS
+  ### Run Locally
+     npm install
+     set environment (VITE_ENV="LOCAL",VITE_ENV = "DEV",VITE_URL = "https://api.weatherapi.com/v1",VITE_KEY = "ask-me-as-it-is-confidential")
+     npm run dev
 
-Currently, two official plugins are available:
+## Features
+     Search city and get this weather data.
+     Responsive Application.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## API USED
+    https://www.weatherapi.com/docs/
