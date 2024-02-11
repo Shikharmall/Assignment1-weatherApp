@@ -5,7 +5,7 @@
      React JS, Vite ,Redux , Tailwind CSS
   ### Run Locally
      npm install
-     set environment (VITE_ENV="LOCAL",VITE_ENV = "DEV",VITE_URL = "https://api.weatherapi.com/v1",VITE_KEY = "ask-me-as-it-is-confidential")
+     set environment (VITE_ENV = "DEV",VITE_URL = "https://api.weatherapi.com/v1",VITE_KEY = "ask-me-as-it-is-confidential")
      npm run dev
 
 ## Features
